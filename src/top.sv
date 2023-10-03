@@ -31,10 +31,12 @@ module calculator_chip (
             EnterOld <= 0;
             state <= 8'd0;
         end
-        else if (Enter && !EnterOld) begin
-            state <= nextState;
+        else begin
+            if (Enter && !EnterOld) begin
+                state <= nextState;
+            end
+            EnterOld <= Enter;
         end
-        EnterOld <= Enter;
     end
 
 endmodule
@@ -50,7 +52,8 @@ module tt_um_calculator (
     input  logic       rst_n     // reset_n - low to reset
 );
 
-    assign uio_oe[2:0] = 3'b111;
+    assign uio_oe = 8'd0;
+    assign uio_out = 8'd0;
 
     calculator_chip calc (
         .NumOut(uo_out),
