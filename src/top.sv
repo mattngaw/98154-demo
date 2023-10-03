@@ -28,6 +28,7 @@ module calculator_chip (
     // async reset
     always_ff @(posedge clock, posedge Reset) begin
         if (Reset) begin
+            EnterOld <= 0;
             state <= 8'd0;
         end
         else if (Enter && !EnterOld) begin
